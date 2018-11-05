@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "AbstractNeuron.h"
 
+AbstractNeuron::AbstractNeuron()
+{
+}
+
 AbstractNeuron::AbstractNeuron(Function *function, double Bias)
 {
 	this->function = function;

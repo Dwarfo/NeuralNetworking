@@ -154,6 +154,8 @@
     <ClInclude Include="HiddenNeuron.h" />
     <ClInclude Include="InputNeuron.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="NeuralNetwork.h" />
+    <ClInclude Include="NNBuilder.h" />
     <ClInclude Include="OutputNeuron.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Sigmoid.h" />
@@ -166,7 +168,9 @@
     <ClCompile Include="HiddenNeuron.cpp" />
     <ClCompile Include="InputNeuron.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="NeuralNetworking.cpp" />
+    <ClCompile Include="NNBuilder.cpp" />
     <ClCompile Include="OutputNeuron.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Sigmoid.cpp" />

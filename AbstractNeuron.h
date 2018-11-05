@@ -7,6 +7,7 @@ class AbstractNeuron
 {
 public:
 	AbstractNeuron(Function *function, double Bias);
+	AbstractNeuron();
 
 	double Bias;
 	double Delta;
