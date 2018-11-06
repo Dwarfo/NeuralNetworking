@@ -29,4 +29,9 @@ void OutputNeuron::calculateOutput()
 	Output = function->getValue(inputSum);
 }
 
+std::string OutputNeuron::NameSelf()
+{
+	return "Output";
+}
+
 

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
+#include <string>
 
 TEST_CASE("Neuron functioning", "[Neuron]")
 {
@@ -113,6 +114,30 @@ SCENARIO("Three neurons are connected with an input value of 0, and desired of 0
 	}
 
 
+}
+
+
+TEST_CASE("NNBuilder layer creation", "[Builder]")
+{
+	
+	std::vector<AbstractNeuron*> neurons;
+	for (int i; i < 2; i++)
+	{
+		InputNeuron* neuron = new InputNeuron();
+		AbstractNeuron* newNeuron = neuron;
+		neurons.push_back(newNeuron);
+	}
+	Layer* inputLayer = new Layer(neurons);
+	
+	std::string test_str = "";
+
+	for (AbstractNeuron* n : inputLayer->neurons)
+	{
+		test_str += n->NameSelf();
+		test_str += " ";
+	}
+
+	REQUIRE(test_str == "Input Input ");
 }
 
 

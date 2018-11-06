@@ -37,3 +37,8 @@ void HiddenNeuron::calculateOutput()
 
 	Output = function->getValue(inputSum);
 }
+
+std::string HiddenNeuron::NameSelf()
+{
+	return "Hidden";
+}

@@ -2,6 +2,7 @@
 #include "Function.h"
 #include "Connection.h"
 #include <list>;
+#include <string>
 
 class AbstractNeuron
 {
@@ -14,6 +15,7 @@ public:
 	double Output;
 	double learningSpeed;
 	virtual void calculateOutput() = 0;
+	virtual std::string NameSelf() = 0;
 	virtual void adjustWeights() = 0;
 	void addToInputs(Connection* connection);
 	void addToOutputs(Connection* connection);

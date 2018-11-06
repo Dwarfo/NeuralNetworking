@@ -6,8 +6,9 @@ class InputNeuron : public AbstractNeuron
 public:
 	double netInput;
 	InputNeuron(Function *function, double Bias);
-	InputNeuron(double Bias);
+	InputNeuron();
 
+	std::string NameSelf();
 	void adjustWeights();
 	void calculateOutput();
 };

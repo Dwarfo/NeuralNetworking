@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Connection.h";
 
 class Connection {

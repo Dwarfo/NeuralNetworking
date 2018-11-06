@@ -1,19 +1,24 @@
 #include "stdafx.h"
 //#include "InputNeuron.h"
+#include <iostream>
 
 InputNeuron::InputNeuron(Function *function, double Bias) : AbstractNeuron(function, Bias)
 {
 
 }
 
-InputNeuron::InputNeuron(double Bias) 
+InputNeuron::InputNeuron() 
 {
-	this->Bias = Bias;
+	this->Bias = 0;
 	this->Output = 0;
 	this->Delta = 0;
 	this->learningSpeed = 1;
 }
 
+std::string InputNeuron::NameSelf() 
+{
+	return "Input";
+}
 
 void InputNeuron::adjustWeights()
 {
