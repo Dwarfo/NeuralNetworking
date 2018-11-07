@@ -15,14 +15,14 @@ private:
 	std::list<Layer* > layers;
 	std::map<Connection*, double> weights;
 	std::list<Connection* > cons;
-	friend void NNBuilder::AddLayer(bool randValues, int layerSize, Function* function, NeuralNetwork* nn);
-	friend void NNBuilder::AddInputLayer(int inputSize, NeuralNetwork* nn);
+	friend void NNBuilder::AddHiddenLayer(int layerSize, Function* function);
+	friend void NNBuilder::AddInputLayer(int inputSize);
 
 public:
 	void ForwardPropagaion();
 	void BackPropagation();
 	Layer* inputLayer;
-	Layer* ouputLayer;
+	Layer* outputLayer;
 	NeuralNetwork();
 	~NeuralNetwork();
 };
