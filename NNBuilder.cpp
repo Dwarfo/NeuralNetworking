@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "NNBuilder.h"
+#include <list>
+#include <string>
+#include <iterator>
+#include <algorithm>
 
 
 void NNBuilder::AddInputLayer(int inputSize)
@@ -16,10 +20,11 @@ void NNBuilder::AddInputLayer(int inputSize)
 
 void NNBuilder::Build()
 {
-	if (layerNum != 0)
+	if (layerNum == 1)
 	{
 		std::vector<AbstractNeuron*> neurons = BuildLayer(LayerType::Output, 1, new Sigmoid());
 		Layer* outputLayer = new Layer(neurons);
+		NN->layers.push_back(outputLayer);
 		NN->outputLayer = outputLayer;
 	}
 	else
@@ -29,13 +34,26 @@ void NNBuilder::Build()
 
 		for (auto neuron : lastAdded->neurons)
 		{
-			neuron = new OutputNeuron(funk, rg->getValue()));
+			neuron = new OutputNeuron(funk, rg->getValue());
+			//neuron = new OutputNeuron(funk, 0);
 		}
 
-		Layer* outputLayer = new Layer(neurons);
-		NN->outputLayer = outputLayer;
+		NN->outputLayer = lastAdded;
 	}
+	
+	auto nnIterator = NN->layers.begin();
 
+	for (int i = 1; i < NN->layers.size(); i++)
+	{
+		auto l1 = std::next(nnIterator, i - 1);
+		auto l2 = std::next(nnIterator, i);
+
+		for (AbstractNeuron* neuron1 : (*l1)->neurons)
+			for (AbstractNeuron* neuron2 : (*l2)->neurons)
+				NN->cons.push_back(new Connection(rg->getValue(), neuron1, neuron2));
+				//NN->cons.push_back(new Connection(0.5, neuron1, neuron2));
+				
+	}
 	//TODO connect all neurons
 }
 
@@ -50,6 +68,7 @@ std::vector<AbstractNeuron*> NNBuilder::BuildLayer(LayerType type, int layerSize
 		for (int i = 0; i < layerSize; i++)
 		{
 			AbstractNeuron * neuron = new HiddenNeuron(function, rg->getValue());
+			//AbstractNeuron * neuron = new HiddenNeuron(function, 0);
 			neurons.push_back(neuron);
 		}
 		break;
@@ -58,6 +77,7 @@ std::vector<AbstractNeuron*> NNBuilder::BuildLayer(LayerType type, int layerSize
 		for (int i = 0; i < layerSize; i++)
 		{
 			AbstractNeuron * neuron = new OutputNeuron(function, rg->getValue());
+			//AbstractNeuron * neuron = new OutputNeuron(function, 0);
 			neurons.push_back(neuron);
 		}
 		break;

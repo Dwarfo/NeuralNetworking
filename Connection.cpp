@@ -12,6 +12,11 @@ Connection::Connection(double Weight, AbstractNeuron * start, AbstractNeuron * d
 	start->addToOutputs(this);
 }
 
+Connection::Connection(double Weight, AbstractNeuron * destination)
+{
+
+}
+
 void Connection::adjustWeight(double delta)
 {
 	newWeight = Weight + delta * start->Output * destination->learningSpeed; // add learning rate

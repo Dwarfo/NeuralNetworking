@@ -22,6 +22,5 @@ public:
 	void AddHiddenLayer(int layerSize, Function* function);
 	void AddInputLayer(int inputSize);
 	NeuralNetwork* GetNetwork(int layerSize, Function* function);
-
 	~NNBuilder();
 };

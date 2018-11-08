@@ -141,4 +141,22 @@ TEST_CASE("NNBuilder layer creation", "[Builder]")
 }
 
 
+TEST_CASE("Building whole net", "[NNBuilder]") 
+{
+	auto sigm = new Sigmoid();
+	NNBuilder* builder = new NNBuilder(1);
+	builder->AddHiddenLayer(1, sigm);
+	builder->AddHiddenLayer(1, sigm);
 
+
+	auto NN = builder->GetNetwork();
+
+	NN->ForwardPropagaion();
+	auto outNeuron = NN->outputLayer->neurons[0];
+	REQUIRE(outNeuron->Output == sigm->getValue(0.25));
+
+	NN->BackPropagation();
+	auto con = outNeuron->inputDendrites.begin();
+	//REQUIRE((*con)->Weight == (0.5 + outNeuron->Output * sigm->getDerivative(inNeuron->Output * 0.5) * (outNeuron->Delta * testConnection2->Weight)));
+
+}

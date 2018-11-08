@@ -9,6 +9,7 @@ public:
 	class AbstractNeuron * destination;
 
 	Connection(double Weight, AbstractNeuron *start, AbstractNeuron *destination);
+	Connection(double Weight, AbstractNeuron *destination);
 
 	void adjustWeight(double delta);
 	void applyWeights();
