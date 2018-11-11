@@ -145,8 +145,8 @@ TEST_CASE("Building whole net", "[NNBuilder]")
 {
 	auto sigm = new Sigmoid();
 	NNBuilder* builder = new NNBuilder(1);
-	builder->AddHiddenLayer(1, sigm);
-	builder->AddHiddenLayer(1, sigm);
+	builder->AddLayer(1, sigm);
+	builder->AddLayer(1, sigm);
 
 
 	auto NN = builder->GetNetwork();

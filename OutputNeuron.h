@@ -10,5 +10,7 @@ public:
 	void adjustWeights();
 	void calculateOutput();
 	std::string NameSelf();
+
+	void GetNeuronNames();
 };
 

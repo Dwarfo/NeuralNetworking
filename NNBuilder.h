@@ -11,7 +11,7 @@ enum class LayerType
 class NNBuilder
 {
 private:
-	int layerNum;
+	std::list<std::pair<int, Function*>> layerNeuronNum;
 	RandomGenerator* rg;
 	NeuralNetwork* NN;
 	void Build();
@@ -19,8 +19,7 @@ private:
 	Layer* lastAdded;
 public:
 	NNBuilder(int inputSize);
-	void AddHiddenLayer(int layerSize, Function* function);
-	void AddInputLayer(int inputSize);
-	NeuralNetwork* GetNetwork(int layerSize, Function* function);
+	void AddLayer(int layerSize, Function* function);
+	NeuralNetwork* GetNetwork();
 	~NNBuilder();
 };

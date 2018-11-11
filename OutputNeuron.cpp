@@ -10,7 +10,7 @@ OutputNeuron::OutputNeuron(Function *function, double Bias) : AbstractNeuron(fun
 void OutputNeuron::adjustWeights()
 {
 	Delta = function->getDerivative(inputSum) * (trueOutput - Output);
-	std::cout << "Delta: " << Delta << std::endl;
+	//std::cout << "Delta: " << Delta << std::endl;
 	for(Connection *dendrite : inputDendrites)
 	{
 		dendrite->adjustWeight(Delta);

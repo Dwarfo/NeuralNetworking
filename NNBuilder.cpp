@@ -6,21 +6,9 @@
 #include <algorithm>
 
 
-void NNBuilder::AddInputLayer(int inputSize)
-{
-	//std::shared_ptr<Layer<InputNeuron>> inputLayer(new Layer<InputNeuron>(inputSize));
-	std::vector<AbstractNeuron*> neurons;
-
-	neurons = BuildLayer(LayerType::Input, inputSize, NULL);
-	Layer* inputLayer = new Layer(neurons);
-	NN->layers.push_back(inputLayer);
-	NN->layersNumber++;
-	NN->inputLayer = inputLayer;
-}
-
 void NNBuilder::Build()
-{
-	if (layerNum == 1)
+{/*
+	if (layerNeuronNum.size() == 1)
 	{
 		std::vector<AbstractNeuron*> neurons = BuildLayer(LayerType::Output, 1, new Sigmoid());
 		Layer* outputLayer = new Layer(neurons);
@@ -39,6 +27,36 @@ void NNBuilder::Build()
 		}
 
 		NN->outputLayer = lastAdded;
+	}
+	*/
+
+	auto listBegin = layerNeuronNum.begin();
+	auto listEnd = layerNeuronNum.end();
+	listEnd--;
+
+	for (auto pair : layerNeuronNum)
+	{
+		if (pair == *listBegin)
+		{
+			auto neurons = BuildLayer(LayerType::Input, pair.first, pair.second);
+			Layer* inputLayer = new Layer(neurons);
+			NN->layers.push_back(inputLayer);
+			NN->inputLayer = inputLayer;
+		}
+		else
+		if (pair == *listEnd)
+		{
+			auto neurons = BuildLayer(LayerType::Output, pair.first, pair.second);
+			Layer* outputLayer = new Layer(neurons);
+			NN->layers.push_back(outputLayer);
+			NN->outputLayer = outputLayer;
+		}
+		else
+		{
+			auto neurons = BuildLayer(LayerType::Hidden, pair.first, pair.second);
+			Layer* layer = new Layer(neurons);
+			NN->layers.push_back(layer);
+		}
 	}
 	
 	auto nnIterator = NN->layers.begin();
@@ -101,31 +119,24 @@ NNBuilder::NNBuilder(int inputSize)
 	NN = new NeuralNetwork();
 	rg = new RandomGenerator(0,1);
 
-	layerNum = 0;
-	AddInputLayer(inputSize);
+	AddLayer(inputSize, nullptr);
 }
 
-void NNBuilder::AddHiddenLayer(int layerSize, Function* function)
+void NNBuilder::AddLayer(int layerSize, Function* function)
 {
 	//std::shared_ptr<Layer<HiddenNeuron>> newLayer(new Layer<HiddenNeuron>(layerSize));
 	std::vector<AbstractNeuron*> neurons;
 
-	neurons = BuildLayer(LayerType::Hidden, layerSize, function);
-	Layer* newLayer = new Layer(neurons);
-
-	NN->layers.push_back(newLayer);
-	NN->layersNumber++;
-	lastAdded = newLayer;
-	lastAdded->layerFunction = function;
-	layerNum++;
+	layerNeuronNum.push_back(std::pair<int, Function*>(layerSize, function));
 }
 
-NeuralNetwork * NNBuilder::GetNetwork(int layerSize, Function * function)
+NeuralNetwork * NNBuilder::GetNetwork()
 {
 	Build();
 
 	return NN;
 }
+
 
 
 NNBuilder::~NNBuilder()
